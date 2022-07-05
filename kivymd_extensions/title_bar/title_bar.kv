@@ -1,0 +1,37 @@
+<MDTitleBarButton@MDIconButton>
+    draggable: False
+    theme_text_color: 'Custom'
+
+
+<MDTitleBar>:
+    orientation: 'vertical'
+    size_hint : 1, None
+    padding: dp(10), 0, dp(5), 0
+    height: dp(48)
+    pos_hint: {'top': 1}
+
+    md_bg_color: app.theme_cls.primary_color
+
+    MDBoxLayout:
+        id: container
+
+        MDLabel:
+            text: app.title if app.title else ''
+            font_style: 'H6'
+
+        MDTitleBarButton:
+            id: minimize
+            icon: 'window-minimize'
+            on_release: root.roll_up(self)
+
+        MDTitleBarButton:
+            id: restore
+            icon: 'window-restore'
+            on_release: root.restore(self)
+
+        MDTitleBarButton:
+            id: stop
+            icon: 'close-circle-outline'
+            on_release: app.stop(self)
+
+    MDSeparator:
