@@ -4,6 +4,8 @@
 
 ```bash
 pip install kivymd_extensions.title_bar
+# or
+pip install https://github.com/kivymd-extensions/title_bar/archive/master.zip
 ```
 
 ### Dependencies:
