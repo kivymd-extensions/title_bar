@@ -12,22 +12,35 @@ KV = """
 MDScreen:
     MDTitleBar:
         id: title_bar
-        
+
     MDTopAppBar:
         id: toolbar
         title: "MDTopAppBar"
         size_hint_y: None
         y: title_bar.y - self.height
-
-    MDRaisedButton:
-        text: "Update primary color"
-        pos_hint: {"center_x": .5, "center_y": .6}
-        on_release: app.update_color()
-
-    MDRaisedButton:
-        text: "Update theme"
-        pos_hint: {"center_x": .5, "center_y": .5}
-        on_release: app.change_theme()
+    
+    ScrollView:
+        id: scroll_view
+        size_hint: (None, None)
+        size: (root.width, root.height - title_bar.height - toolbar.height - dp(10))
+        always_overscroll: False
+        
+        MDBoxLayout:
+            orientation: 'vertical'
+            adaptive_height: True
+            padding: dp(0), max(scroll_view.height / 2 - primary_color_btn.height - dp(5), dp(0)), dp(0), dp(0)
+            spacing: dp(10)
+            
+            MDRaisedButton:
+                id: primary_color_btn
+                text: "Update primary color"
+                pos_hint: {"center_x": .5}
+                on_release: app.update_color()
+        
+            MDRaisedButton:
+                text: "Update theme"
+                pos_hint: {"center_x": .5}
+                on_release: app.change_theme()
 """
 
 colors = ['Red', 'Pink', 'Purple', 'DeepPurple', 'Indigo', 'Blue', 'LightBlue', 'Cyan', 'Teal', 'Green', 'LightGreen',

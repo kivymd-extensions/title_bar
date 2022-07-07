@@ -1,7 +1,9 @@
 from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.material_resources import DEVICE_TYPE
 
+import kivy
 from kivy.lang.builder import Builder
-from kivy.properties import ListProperty, BooleanProperty
+from kivy.properties import ListProperty, BooleanProperty, StringProperty
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.logger import Logger
@@ -28,19 +30,33 @@ class MDTitleBar(MDBoxLayout):
     and defaults to `True`, if `False` separator will be delete.
     """
 
+    icon = StringProperty(os.path.join(os.path.dirname(kivy.__file__), 'data', 'logo', 'kivy-icon-64.png'))
+    """
+    :attr:`icon` is an :class:`~kivy.properties.StringProperty`
+    and defaults to `kivy-icon-64.png`.
+    """
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.window_size = None, None
 
         if not Window.custom_titlebar:
-            Window.custom_titlebar = True
+            if DEVICE_TYPE == 'desktop':
+                Window.custom_titlebar = True
 
-            if not Window.set_custom_titlebar(self):
+                if not Window.set_custom_titlebar(self):
+                    Logger.error("Window: setting custom titlebar Not allowed on this system")
+            else:
+                Clock.schedule_once(lambda dt: self._rm_widget())
                 Logger.error("Window: setting custom titlebar Not allowed on this system")
         else:
             Logger.warning("Window: titlebar already added")
 
         Clock.schedule_once(self._remove_separator)
+
+    def _rm_widget(self):
+        self.clear_widgets()
+        self.height = 0
 
     def _remove_separator(self, dt: float):
         if not self.separator:
