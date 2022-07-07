@@ -12,7 +12,7 @@ KV = """
 MDScreen:
     MDTitleBar:
         id: title_bar
-
+        
     MDTopAppBar:
         id: toolbar
         title: "MDTopAppBar"

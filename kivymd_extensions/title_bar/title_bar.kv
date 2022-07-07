@@ -1,37 +1,48 @@
 <MDTitleBarButton@MDIconButton>
     draggable: False
     theme_text_color: 'Custom'
+    icon_size: sp(18)
+    pos_hint: {'center_y': 0.5}
 
 
 <MDTitleBar>:
     orientation: 'vertical'
     size_hint : 1, None
-    padding: dp(10), 0, dp(5), 0
-    height: dp(48)
     pos_hint: {'top': 1}
-
+    height: dp(48)
     md_bg_color: app.theme_cls.primary_color
 
     MDBoxLayout:
-        id: container
+        orientation: 'vertical'
 
-        MDLabel:
-            text: app.title if app.title else ''
-            font_style: 'H6'
+        MDBoxLayout:
+            id: container
+            padding: dp(10), dp(2), dp(5), dp(2)
+            spacing: dp(5)
 
-        MDTitleBarButton:
-            id: minimize
-            icon: 'window-minimize'
-            on_release: root.roll_up(self)
+            MDLabel:
+                id: title
+                text: app.title if app.title else ''
+                font_style: 'H6'
+                shorten: True
+                shorten_from: 'right'
+                markup: True
+                color: app.theme_cls.text_color if not root.title_color else root.title_color
 
-        MDTitleBarButton:
-            id: restore
-            icon: 'window-restore'
-            on_release: root.restore(self)
+            MDTitleBarButton:
+                id: minimize
+                icon: 'window-minimize'
+                on_release: root.roll_up(self)
 
-        MDTitleBarButton:
-            id: stop
-            icon: 'close-circle-outline'
-            on_release: app.stop(self)
+            MDTitleBarButton:
+                id: restore
+                icon: 'window-restore'
+                on_release: root.restore(self)
+
+            MDTitleBarButton:
+                id: stop
+                icon: 'close-circle-outline'
+                on_release: app.stop(self)
 
     MDSeparator:
+        id: separator
