@@ -54,6 +54,7 @@ class CustomTitleBar(MDApp):
         self.screen = Builder.load_string(KV)
 
         self.title = "My App"
+        self.icon = 'icon.png'
 
     def build(self):
         return self.screen

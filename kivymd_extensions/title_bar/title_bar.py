@@ -2,6 +2,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.material_resources import DEVICE_TYPE
 
 import kivy
+from kivy.app import App
 from kivy.lang.builder import Builder
 from kivy.properties import ListProperty, BooleanProperty, StringProperty
 from kivy.clock import Clock
@@ -30,14 +31,17 @@ class MDTitleBar(MDBoxLayout):
     and defaults to `True`, if `False` separator will be delete.
     """
 
-    icon = StringProperty(os.path.join(os.path.dirname(kivy.__file__), 'data', 'logo', 'kivy-icon-64.png'))
+    icon = StringProperty(os.path.join(os.path.dirname(kivy.__file__), 'data', 'logo', 'kivy-icon-64.png'),
+                          allownone=True
+                          )
     """
     :attr:`icon` is an :class:`~kivy.properties.StringProperty`
-    and defaults to `kivy-icon-64.png`.
+    and defaults to `kivy-icon-64.png`, `None` allowed.
     """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        App.get_running_app().bind(icon=self._change_icon)
         self.window_size = None, None
 
         self._set_custom_titlebar()
@@ -64,6 +68,14 @@ class MDTitleBar(MDBoxLayout):
     def _remove_separator(self, dt: float):
         if not self.separator:
             self.remove_widget(self.ids.separator)
+
+    def _change_icon(self, inst, icon: str):
+        """
+        if `MDTitleBar` icon is `None`, so the change in the application `icon` should not be reflected on the widget
+        """
+
+        if self.icon:
+            self.icon = icon
 
     @staticmethod
     def roll_up(inst):
