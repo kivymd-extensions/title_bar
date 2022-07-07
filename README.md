@@ -30,6 +30,9 @@ if __name__ == "__main__":
     MainApp().run()
 ```
 
+![demo_img](https://user-images.githubusercontent.com/40869738/177749688-76cd38a9-42d0-432d-868f-d6d1077ac8e3.png)
+
+
 ### Support
 
 If you need assistance, or you have a question, you can ask for help on our mailing list:
