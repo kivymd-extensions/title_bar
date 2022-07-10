@@ -25,6 +25,12 @@ class MDTitleBar(MDBoxLayout):
     and defaults to `[]`.
     """
 
+    title_halign = StringProperty('left')
+    """
+    :attr:`title_halign` is an :class:`~kivy.properties.StringProperty`
+    and defaults to `left`.
+    """
+
     separator = BooleanProperty(True)
     """
     :attr:`title_color` is an :class:`~kivy.properties.BooleanProperty`
