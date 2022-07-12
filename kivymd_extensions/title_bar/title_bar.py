@@ -54,15 +54,15 @@ class MDTitleBar(MDBoxLayout):
         Clock.schedule_once(self._remove_separator)
 
     def _set_custom_titlebar(self):
-        if not Window.custom_titlebar:
-            if DEVICE_TYPE == 'desktop':
+        if DEVICE_TYPE == 'desktop':
+            if not Window.custom_titlebar:
                 Window.custom_titlebar = True
 
                 if Window.set_custom_titlebar(self):
                     return
-        else:
-            Logger.warning("Window: titlebar already added")
-            return
+            else:
+                Logger.warning("Window: titlebar already added")
+                return
 
         Clock.schedule_once(lambda dt: self._rm_widget())
         Logger.error("Window: setting custom titlebar Not allowed on this system")
